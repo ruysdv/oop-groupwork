@@ -1,0 +1,755 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "FastAPI",
+    "version": "0.1.0"
+  },
+  "paths": {
+    "/objects": {
+      "post": {
+        "summary": "Add Obj",
+        "operationId": "add_obj_objects_post",
+        "parameters": [
+          {
+            "name": "auth",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Auth"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_add_obj_objects_post"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Remove Obj",
+        "operationId": "remove_obj_objects_delete",
+        "parameters": [
+          {
+            "name": "obj_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Obj Id"
+            }
+          },
+          {
+            "name": "auth",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Auth"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "List Obj",
+        "operationId": "list_obj_objects_get",
+        "parameters": [
+          {
+            "name": "kw",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "description": "Keywords: Title/Author/Introduction",
+              "title": "Kw"
+            },
+            "description": "Keywords: Title/Author/Introduction"
+          },
+          {
+            "name": "auth",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Auth"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/objects/{obj_id}": {
+      "put": {
+        "summary": "Edit Imf",
+        "operationId": "edit_imf_objects__obj_id__put",
+        "parameters": [
+          {
+            "name": "obj_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Obj Id"
+            }
+          },
+          {
+            "name": "auth",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Auth"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_edit_imf_objects__obj_id__put"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "Fd Obj",
+        "operationId": "fd_obj_objects__obj_id__get",
+        "parameters": [
+          {
+            "name": "obj_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Obj Id"
+            }
+          },
+          {
+            "name": "auth",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Auth"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/objects/{obj_id}/download": {
+      "get": {
+        "summary": "Dl Obj",
+        "operationId": "dl_obj_objects__obj_id__download_get",
+        "parameters": [
+          {
+            "name": "obj_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Obj Id"
+            }
+          },
+          {
+            "name": "auth",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Auth"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/users": {
+      "post": {
+        "summary": "Admin Create User",
+        "operationId": "admin_create_user_admin_users_post",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Name"
+            }
+          },
+          {
+            "name": "pw",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Pw"
+            }
+          },
+          {
+            "name": "power",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 1,
+              "title": "Power"
+            }
+          },
+          {
+            "name": "auth",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Auth"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/users/{username}": {
+      "delete": {
+        "summary": "Admin Delete User",
+        "operationId": "admin_delete_user_admin_users__username__delete",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Name"
+            }
+          },
+          {
+            "name": "auth",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Auth"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/users/{username}/permission": {
+      "put": {
+        "summary": "Admin Set Permission",
+        "operationId": "admin_set_permission_admin_users__username__permission_put",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Name"
+            }
+          },
+          {
+            "name": "power",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Power"
+            }
+          },
+          {
+            "name": "auth",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Auth"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/register": {
+      "post": {
+        "summary": "Register",
+        "operationId": "register_register_post",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Name"
+            }
+          },
+          {
+            "name": "password",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Password"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/login": {
+      "post": {
+        "summary": "Login",
+        "operationId": "login_login_post",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Name"
+            }
+          },
+          {
+            "name": "password",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Password"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/changepassword": {
+      "post": {
+        "summary": "Change Pw",
+        "operationId": "change_pw_changepassword_post",
+        "parameters": [
+          {
+            "name": "oldpw",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Oldpw"
+            }
+          },
+          {
+            "name": "newpw",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Newpw"
+            }
+          },
+          {
+            "name": "auth",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Auth"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/account": {
+      "delete": {
+        "summary": "Remove User",
+        "operationId": "remove_user_account_delete",
+        "parameters": [
+          {
+            "name": "auth",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "title": "Auth"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Body_add_obj_objects_post": {
+        "properties": {
+          "obj_id": {
+            "type": "integer",
+            "title": "Obj Id"
+          },
+          "t": {
+            "type": "string",
+            "title": "T"
+          },
+          "zz": {
+            "type": "string",
+            "title": "Zz",
+            "default": ""
+          },
+          "itd": {
+            "type": "string",
+            "title": "Itd",
+            "default": ""
+          },
+          "file": {
+            "type": "string",
+            "format": "binary",
+            "title": "File"
+          }
+        },
+        "type": "object",
+        "required": [
+          "obj_id",
+          "t",
+          "file"
+        ],
+        "title": "Body_add_obj_objects_post"
+      },
+      "Body_edit_imf_objects__obj_id__put": {
+        "properties": {
+          "t": {
+            "type": "string",
+            "title": "T"
+          },
+          "zz": {
+            "type": "string",
+            "title": "Zz"
+          },
+          "itd": {
+            "type": "string",
+            "title": "Itd"
+          },
+          "file": {
+            "type": "string",
+            "format": "binary",
+            "title": "File"
+          }
+        },
+        "type": "object",
+        "title": "Body_edit_imf_objects__obj_id__put"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "ctx": {
+            "type": "object",
+            "title": "Context"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      }
+    }
+  }
+}

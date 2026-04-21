@@ -1,3 +1,5 @@
+import socket
+import threading
 import tkinter as tk
 from tkinter import messagebox, ttk
 
@@ -18,6 +20,63 @@ from ui_support import (
 from windows import CGPW, LOGIN, REGISTER
 
 
+INSTANCE_HOST = "127.0.0.1"
+INSTANCE_PORT = 38461
+
+
+class SingleInstanceGuard:
+    def __init__(self, on_activate):
+        self.on_activate = on_activate
+        self.server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self.server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        self.active = False
+
+        try:
+            self.server.bind((INSTANCE_HOST, INSTANCE_PORT))
+            self.server.listen(1)
+            self.active = True
+            self.thread = threading.Thread(target=self._serve, daemon=True)
+            self.thread.start()
+        except OSError:
+            self.server.close()
+            self.server = None
+
+    def _serve(self):
+        while self.active and self.server is not None:
+            try:
+                client, _addr = self.server.accept()
+            except OSError:
+                break
+            try:
+                client.recv(64)
+            except OSError:
+                pass
+            finally:
+                try:
+                    client.close()
+                except OSError:
+                    pass
+            self.on_activate()
+
+    def close(self):
+        self.active = False
+        if self.server is not None:
+            try:
+                self.server.close()
+            except OSError:
+                pass
+            self.server = None
+
+
+def notify_existing_instance():
+    try:
+        with socket.create_connection((INSTANCE_HOST, INSTANCE_PORT), timeout=1) as client:
+            client.sendall(b"ACTIVATE")
+        return True
+    except OSError:
+        return False
+
+
 class Client:
     def __init__(self, root):
         self.root = root
@@ -30,9 +89,11 @@ class Client:
         self.users = None
         self.power = -1
         self.resource_rows = {}
+        self.instance_guard = SingleInstanceGuard(self._request_activate)
 
         self._configure_style()
         self._build_ui()
+        self.root.protocol("WM_DELETE_WINDOW", self.close_app)
         self.refresh_buttons()
 
     def _configure_style(self):
@@ -40,6 +101,29 @@ class Client:
         style.theme_use("flatly")
         style.configure("Treeview", rowheight=34, font=("Segoe UI", 10))
         style.configure("Treeview.Heading", font=("Segoe UI", 11, "bold"))
+
+    def _request_activate(self):
+        self.root.after(0, self.activate_window)
+
+    def activate_window(self):
+        try:
+            self.root.deiconify()
+            self.root.state("normal")
+        except tk.TclError:
+            pass
+        self.root.lift()
+        try:
+            self.root.attributes("-topmost", True)
+            self.root.after(250, lambda: self.root.attributes("-topmost", False))
+        except tk.TclError:
+            pass
+        self.root.focus_force()
+
+    def close_app(self):
+        if self.instance_guard is not None:
+            self.instance_guard.close()
+            self.instance_guard = None
+        self.root.destroy()
 
     def _build_ui(self):
         self.outer = tb.Frame(self.root, padding=20)
@@ -467,6 +551,8 @@ class Client:
 
 
 if __name__ == "__main__":
+    if notify_existing_instance():
+        raise SystemExit
     app_root = tb.Window(themename="flatly")
     client = Client(app_root)
     app_root.mainloop()

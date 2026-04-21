@@ -24,7 +24,7 @@ async def edit_imf(obj_id:int,t:str=Form(None),zz:str=Form(None),itd:str=Form(No
     if(file):
         fp=os.path.join(FILES_DIR,f"{obj_id}.zip")
         with open(fp,"wb") as f:
-            f.write(await file.read)
+            f.write(await file.read())
     return {"message":"Success"}
 
 @api.delete("/objects")
